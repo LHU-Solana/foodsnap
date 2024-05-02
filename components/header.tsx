@@ -6,10 +6,19 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/utils/cn"
 import { IconButton } from "./ui/icon-button"
 import { Typography } from "./ui/typography"
+import { text } from "stream/consumers"
 
 const MenuItems = [
   {
-    text: "Home",
+    text: "Reviews",
+    href: "/Reviews",
+  },
+  {
+    text: "Map",
+    href: "/",
+  },
+  {
+    text: "Challenges",
     href: "/",
   },
   {
@@ -19,19 +28,12 @@ const MenuItems = [
 ]
 
 export default function Header() {
-  const { asPath } = useRouter()
+  const { asPath } = useRouter();
 
   return (
     <header className="fixed left-0 top-0 z-20 w-full border-b border-gray-200 bg-white">
-      <div className="container mx-auto flex items-center p-4 md:px-6">
-        <a href="/" className="flex items-center">
-          <img src="/assets/logo.png" className="mr-3 h-8" alt={siteConfig.name} />
-          <Typography as="span" level="h6" className="hidden whitespace-nowrap font-semibold md:inline-block">
-            {siteConfig.name}
-          </Typography>
-        </a>
-
-        <ul className="ml-10 hidden items-center gap-6 md:flex">
+      <div className="container mx-auto flex justify-center items-center p-6 md:px-6"> 
+        <ul className="ml-0 hidden items-center gap-6 md:flex">
           {MenuItems.map((item) => (
             <li key={item.text}>
               <Link
@@ -40,21 +42,15 @@ export default function Header() {
                   "text-gray-900": item.href === "/" ? asPath === item.href : asPath.startsWith(item.href),
                 })}
               >
-                <Typography level="body4" className="font-semibold">
+                <Typography level="body4" className=" left-10 font-semibold">
                   {item.text}
                 </Typography>
               </Link>
             </li>
           ))}
         </ul>
-
-        <div className="flex flex-1 items-center justify-end gap-2">
-          <ConnectWalletButton />
-          <IconButton className="md:hidden">
-            <MenuIcon />
-          </IconButton>
-        </div>
       </div>
     </header>
-  )
+  );
 }
+
